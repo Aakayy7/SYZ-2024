@@ -74,7 +74,7 @@ yeteneğini güçlendirmiştir. Bu teknikler, modelin daha geniş bir veri senar
 sine ve test edilmesine olanak tanıyarak, gerçek dünya verilerindeki varyasyonlara karşı daha esnek 
 ve güvenilir olmasını sağlamıştır. 
 
-Gerekli kodlara [Augmentation.py](https://github.com/Aakayy7/SYZ-2024/raw/main/NER-CODES/augment3.py)
+Gerekli kodlara [Augmentation.py](https://github.com/Aakayy7/SYZ-2024/raw/main/NER-CODES/augment_data.py)
 
 #### Orjinal Metin
 
