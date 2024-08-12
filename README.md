@@ -6,9 +6,9 @@ Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerin
 ## Takım Üyeleri
 ---
 
--  Ahmet Akay - [LinkedIn](https://www.linkedin.com/in/alperkaraca/), [Github](https://github.com/thealper2) <br/>
--  Zafer Khaliqi - [LinkedIn](https://www.linkedin.com/in/ferhattoson/), [Github](https://github.com/ferhattoson) <br/>
--  Ayşe Sude Erzurumlu - [LinkedIn](https://www.linkedin.com/in/selcukyavas/), [Github](https://github.com/SelcukYavas) <br/>
+-  Ahmet Akay - [LinkedIn](https://www.linkedin.com/in/alperkaraca/), [Github](https://github.com/Aakayy7) <br/>
+-  Zafer Khaliqi - [LinkedIn](https://www.linkedin.com/in/ferhattoson/), [Github](https://github.com/zaferkhaliqi) <br/>
+-  Ayşe Sude Erzurumlu - [LinkedIn](https://www.linkedin.com/in/selcukyavas/), [Github](https://github.com/SudeErzurumlu) <br/>
 
 
 ## Bölümler
@@ -38,11 +38,118 @@ Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerin
 
 ## Varlık İsmi Çıkarımı (NER) 
 
+Etiketler şunları ifade etmektedir; 
+
+- ANAT: Anatomik bir kısım, lokalizasyon,  histolojik antite, anatomik dağılım ifadeleri, taraf bulgusu
+
+- OBS-PRESENT: Radyolojik bir özelliğin varlığının olma durumu, tanımlanabilir patofizyolojik 
+süreç, veya tanısal hastalık olma durumu, bir bulgunun olma durumu, normal bir sürecin olma 
+durumu  
+
+- OBS-ABSENT: Radyolojik bir özelliğin bulunmaması, tanımlanabilir patofizyolojik süreç, 
+veya tanısal hastalık olmama durumu, bir bulgunun olmama durumu 
+
+- OBS-UNCERTAIN: Şüphe var ama bir konuda kesinlik  yok, belirsizlik içeren bir bulgu, ayırıcı tanı, 
+belirsiz net olmayan patofizyolojik süreç veya teşhis hastalık
+
+
+Aşağıdaki kod parçasını çalıştırarak gerekli olan bütün kütüphaneleri indirin
+```python
+pip install -r ner_requirements.txt
+```
+
 ### 4.1 Annotation with AI
 
 ### 4.2 Augmentation ( Word Level )
 
-### 4.3 Fix_it.py
+Veri setini genişletmek ve model performansını artırmak amacıyla çeşitli veri artırma (Data Augmen
+tation) teknikleri uygulanmıştır. Karakter değişimi, karakter silme, karakter ekleme ve eşanlamlı 
+değiştirme gibi yöntemler kullanılmıştır. Karakter değişimi ile metindeki belirli karakterler farklı karak
+terlerle değiştirilirken, karakter silme yöntemiyle belirli karakterler silinerek veri setinde çeşitlilik 
+sağlanmıştır. Karakter ekleme ile metne ekstra karakterler eklenmiş ve eşanlamlı değiştirme ile be
+lirli kelimeler eşanlamlılarıyla değiştirilmiştir. Bu teknikler, modelin küçük yazım hatalarına, farklı 
+karakter varyasyonlarına, eksik veya hatalı karakter içeren verilerle, fazladan karakter içeren ver
+ilerle ve farklı kelime kullanımlarıyla başa çıkma yeteneğini artırarak dayanıklılığını ve genelleme 
+yeteneğini güçlendirmiştir. Bu teknikler, modelin daha geniş bir veri senaryosu yelpazesiyle eğitilme
+sine ve test edilmesine olanak tanıyarak, gerçek dünya verilerindeki varyasyonlara karşı daha esnek 
+ve güvenilir olmasını sağlamıştır. 
+
+Gerekli kodlara [Augmentation.py](https://raw.githubusercontent.com/Aakayy7/SYZ-2024/NER-CODES/augment3.py)
+
+#### Orjinal Metin
+
+```python
+Orjinal Metin,
+
+Bu örnek metin, karakter düzeyinde veri çoğaltma yöntemlerini göstermektedir.
+
+```
+
+#### character_swap
+
+```python
+
+# Define all the augmentation methods
+def character_swap(text, swap_prob=0.1):
+    text_chars = list(text)
+    for i in range(len(text_chars) - 1):
+        if random.random() < swap_prob:
+            text_chars[i], text_chars[i + 1] = text_chars[i + 1], text_chars[i]
+    return ''.join(text_chars)
+```
+
+<img width=700px src='https://raw.githubusercontent.com/Aakayy7/SYZ-2024/images/character-swap.png'> 
+
+
+#### character_replacement
+
+```python
+
+def character_replacement(text, replace_prob=0.1):
+    text_chars = list(text)
+    for i in range(len(text_chars)):
+        if random.random() < replace_prob:
+            text_chars[i] = random.choice('abcdefghijklmnoprstuvyzABCDEFGHIJKLMNOPRSTUVYZ')
+    return ''.join(text_chars)
+```
+
+<img width=700px src='https://raw.githubusercontent.com/Aakayy7/SYZ-2024/images/character-replacemant.png'> 
+
+
+#### character_deletion
+
+```python
+
+def character_deletion(text, delete_prob=0.1):
+    text_chars = list(text)
+    new_text_chars = [ch for ch in text_chars if random.random() > delete_prob]
+    return ''.join(new_text_chars)
+
+```
+
+<img width=700px src='https://raw.githubusercontent.com/Aakayy7/SYZ-2024/images/Character-deletion.png'> 
+
+
+#### character_insertion
+
+```python
+
+def character_insertion(text, insert_prob=0.1):
+    text_chars = list(text)
+    new_text_chars = []
+    for ch in text_chars:
+        new_text_chars.append(ch)
+        if random.random() < insert_prob:
+            new_text_chars.append(random.choice('abcdefghijklmnoprstuvyzABCDEFGHIJKLMNOPRSTUVYZ'))
+    return ''.join(new_text_chars)
+
+```
+
+<img width=700px src='https://raw.githubusercontent.com/Aakayy7/SYZ-2024/images/character-insertion.png'> 
+
+
+
+### 4.3 Fix_it.py 
 
 ### 4.4 Preprocessing
 
