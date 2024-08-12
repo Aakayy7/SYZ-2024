@@ -127,7 +127,7 @@ def character_deletion(text, delete_prob=0.1):
 
 ```
 
-![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character_deletion.png)
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/Character_deletion.png)
 
 
 #### character_insertion
@@ -149,7 +149,14 @@ def character_insertion(text, insert_prob=0.1):
 
 
 
-### 4.3 Fix_it.py 
+### 4.3 Fix_it.py
+
+Verilen JSONL dosyasının içindeki türkçe olmayan karakterleri türkçe karşılıkları ile değiştirir
+eğer karşılığı yoksa siler.
+
+Gerekli kodlara [Fix_İT.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/fix_it.py)
+
+
 
 ### 4.4 Preprocessing
 
