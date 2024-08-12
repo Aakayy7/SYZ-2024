@@ -185,7 +185,25 @@ Gerekli Preprocessing kodlarına [NER_Preprocessing.py](https://github.com/Aakay
 
 ### 4.5 MODELS
 
+Üretilen ve etiketlenen veriler ön işleme adımlarından geçirilerek SpaCy, CRF, LSTM ve BERT Base 
+Turkish Cased modelleri eğitildi. LSTM modeli, diğer modellere göre sekans bazlı verilerde üstün 
+performans sergileyerek karmaşık ilişkileri daha etkili bir şekilde işleyebilme yeteneğiyle öne çıktı. 
+Türkçe metinlerdeki dil yapısını anlama ve uzun dönem bağımlılıkları yönetme konusundaki 
+başarısı, LSTM modelinin seçilmesinde etkili oldu. Ayrıca, LSTM'nin sürekli olarak geliştirilen ve 
+geniş kullanıcı kitlesi tarafından benimsenen bir model olması, güvenilirliğini ve etkinliğini pekiştirdi
 
+<br>
+
+Model çıktıları:
+| Model Adı                 | Doğruluk (Acc) | macro avg |
+|---------------------------|----------|----------------|
+| [CRF](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/CRF_NER.ipynb)| %80 | %75  |
+| [SpaCy](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/NER_SPACY.ipynb)| %75,9   | %72,3 |
+| [LSTM](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/ltsm.ipynb)| %95,3 | %84,3|
+
+
+
+<br>
 
 ## BI-RADS Kategorisi Tahminleme 
 
