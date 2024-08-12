@@ -6,10 +6,9 @@ Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerin
 ## Takım Üyeleri
 ---
 
-**Danışman:** Sabri Arık - [LinkedIn](https://www.linkedin.com/in/%C5%9Feng%C3%BCl-bayrak-ba59211b7/) <br/>
-**Üye:** Ahmet Akay - [LinkedIn](https://www.linkedin.com/in/alperkaraca/), [Github](https://github.com/thealper2) <br/>
-**Üye:** Zafer Khaliqi - [LinkedIn](https://www.linkedin.com/in/ferhattoson/), [Github](https://github.com/ferhattoson) <br/>
-**Üye:** Ayşe Sude Erzurumlu - [LinkedIn](https://www.linkedin.com/in/selcukyavas/), [Github](https://github.com/SelcukYavas) <br/>
+-  Ahmet Akay - [LinkedIn](https://www.linkedin.com/in/alperkaraca/), [Github](https://github.com/thealper2) <br/>
+-  Zafer Khaliqi - [LinkedIn](https://www.linkedin.com/in/ferhattoson/), [Github](https://github.com/ferhattoson) <br/>
+-  Ayşe Sude Erzurumlu - [LinkedIn](https://www.linkedin.com/in/selcukyavas/), [Github](https://github.com/SelcukYavas) <br/>
 
 
 ## Bölümler
