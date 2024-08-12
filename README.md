@@ -74,7 +74,7 @@ yeteneğini güçlendirmiştir. Bu teknikler, modelin daha geniş bir veri senar
 sine ve test edilmesine olanak tanıyarak, gerçek dünya verilerindeki varyasyonlara karşı daha esnek 
 ve güvenilir olmasını sağlamıştır. 
 
-Gerekli kodlara [Augmentation.py](https://github.com/Aakayy7/SYZ-2024/raw/main/NER-CODES/augment_data.py)
+Gerekli kodlara [Augmentation.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/augment_data.py)
 
 #### Orjinal Metin
 
@@ -113,7 +113,7 @@ def character_replacement(text, replace_prob=0.1):
     return ''.join(text_chars)
 ```
 
-![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character-replacemant.png)
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character_replacemant.png)
 
 
 #### character_deletion
@@ -127,7 +127,7 @@ def character_deletion(text, delete_prob=0.1):
 
 ```
 
-![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character-deletion.png)
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character_deletion.png)
 
 
 #### character_insertion
