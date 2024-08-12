@@ -74,12 +74,12 @@ yeteneğini güçlendirmiştir. Bu teknikler, modelin daha geniş bir veri senar
 sine ve test edilmesine olanak tanıyarak, gerçek dünya verilerindeki varyasyonlara karşı daha esnek 
 ve güvenilir olmasını sağlamıştır. 
 
-Gerekli kodlara [Augmentation.py](https://raw.githubusercontent.com/Aakayy7/SYZ-2024/NER-CODES/augment3.py)
+Gerekli kodlara [Augmentation.py](https://github.com/Aakayy7/SYZ-2024/raw/main/NER-CODES/augment3.py)
 
 #### Orjinal Metin
 
 ```python
-Orjinal Metin,
+Orjinal Metin
 
 Bu örnek metin, karakter düzeyinde veri çoğaltma yöntemlerini göstermektedir.
 
@@ -98,7 +98,7 @@ def character_swap(text, swap_prob=0.1):
     return ''.join(text_chars)
 ```
 
-<img width=700px src='https://raw.githubusercontent.com/Aakayy7/SYZ-2024/images/character-swap.png'> 
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character-swap.png)
 
 
 #### character_replacement
@@ -113,7 +113,7 @@ def character_replacement(text, replace_prob=0.1):
     return ''.join(text_chars)
 ```
 
-<img width=700px src='https://raw.githubusercontent.com/Aakayy7/SYZ-2024/images/character-replacemant.png'> 
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character-replacemant.png)
 
 
 #### character_deletion
@@ -127,7 +127,7 @@ def character_deletion(text, delete_prob=0.1):
 
 ```
 
-<img width=700px src='https://raw.githubusercontent.com/Aakayy7/SYZ-2024/images/Character-deletion.png'> 
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character-deletion.png)
 
 
 #### character_insertion
@@ -145,7 +145,7 @@ def character_insertion(text, insert_prob=0.1):
 
 ```
 
-<img width=700px src='https://raw.githubusercontent.com/Aakayy7/SYZ-2024/images/character-insertion.png'> 
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character_insertion.png)
 
 
 
