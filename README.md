@@ -163,6 +163,9 @@ Gerekli kodlara [Fix_İT.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-C
 
 JSONL formatında alınan veriler dataframe çevrilir .
 
+Gerekli Preprocessing kodlarına [NER_Preprocessing.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/NER_Preprocessing.py)
+
+
 <br>
 
 Örnek Dataframe:
@@ -170,7 +173,10 @@ JSONL formatında alınan veriler dataframe çevrilir .
 | --- | --- | --- |
 | 0 | BİLATERAL | O | 
 | 0 | MAMOGRAFİ | O |
-| 0 | İNCELEMESİ | ANAT |
+| 0 | İNCELEMESİ | O |
+| 0 | Her | O |
+| 0 | iki | ANAT |
+
 
 
 <br>
