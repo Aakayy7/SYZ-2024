@@ -158,7 +158,24 @@ Gerekli kodlara [Fix_İT.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-C
 
 
 
+
 ### 4.4 Preprocessing
+
+JSONL formatında alınan veriler dataframe çevrilir .
+
+<br>
+
+Örnek Dataframe:
+| sentence_id | word | label |
+| --- | --- | --- |
+| 0 | BİLATERAL | O | 
+| 0 | MAMOGRAFİ | O |
+| 0 | İNCELEMESİ | ANAT |
+
+
+<br>
+
+
 
 ### 4.5 MODELS
 
