@@ -6,18 +6,18 @@ Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerin
 ## Takım Üyeleri
 ---
 
--  Ahmet Akay - [LinkedIn](https://www.linkedin.com/in//), [Github](https://github.com/Aakayy7) <br/>
--  Zafer Khaliqi - [LinkedIn](https://www.linkedin.com/in//), [Github](https://github.com/zaferkhaliqi) <br/>
--  Ayşe Sude Erzurumlu - [LinkedIn](https://www.linkedin.com/in//), [Github](https://github.com/SudeErzurumlu) <br/>
+-  Ahmet Akay - [LinkedIn](https://www.linkedin.com/in/ahmet-akayy/), [Github](https://github.com/Aakayy7) <br/>
+-  Zafer Khaliqi - [LinkedIn](https://www.linkedin.com/in/zafer-khaliqi-a50464286/), [Github](https://github.com/zaferkhaliqi) <br/>
 
 
 ## Bölümler
 
-1. [Veri Seti](#introduction)
+1. [Veri Seti](#VeriSeti)
 2. [V-BIRADS](#installation)
 3. [V-YOLO](#usage)
 4. [NER](#contributing)
 5. [TEXT- CLASFFICATION](#usage)
+
 
 
 
@@ -205,14 +205,96 @@ Model çıktıları:
 
 <br>
 
-## BI-RADS Kategorisi Tahminleme 
+## BI-RADS Kategorisi Tahminleme
+
+Mamografi raporlarından BIRADS sınıflarını tahmin eden bir yapay zeka modeli geliştirildi .Bu model, raporları analiz ederek BIRADS 1, 2, 3, 4, ve 5 kategorilerine sınıflandırma yapabiliyor.Amacımız, doktorlara destek olarak, meme kanseri risk seviyelerinin belirlenmesine katkı sağlamak ve erken teşhis süreçlerinde daha hızlı ve güvenilir sonuçlar elde edilmesine yardımcı olmaktır. 
 
 
-### 5.1 Make Dataset
+Kategoriler :
 
-### 5.2 data visalization
+- BIRADS 1 (Negatif): Meme dokusu tamamen normaldir. Görüntülemede hiçbir anormal bulgu, kitle, kireçlenme veya lezyon tespit edilmemiştir. Bu durumda, hastanın mamografisi tamamen temiz olarak değerlendirilir.
 
-### 5.3 Augmentation
+- BIRADS 2 (Benign): Meme dokusunda, kansersiz ve tamamen iyi huylu bir durum tespit edilmiştir. Örneğin, bir kist, fibrokistik değişiklikler, veya iyi huylu bir kireçlenme gibi bulgular görülebilir. Bu tür bulgular, kansere işaret etmez ve genellikle tedavi veya takip gerektirmez.
+
+- BIRADS 3 (Muhtemelen Benign): Küçük bir olasılıkla kötü huylu olabilecek bir bulgu tespit edilmiştir. Genellikle 6 ay sonra tekrar kontrol edilmesi önerilir.
+
+- BIRADS 4 (Şüpheli Malignite): Kötü huylu, yani kanser olma olasılığı olan bir bulgu mevcuttur. Bu durum genellikle biyopsi gibi ileri tetkikler gerektirir. BIRADS 4, kendi içinde kanser olasılığına göre 4A (düşük), 4B (orta), ve 4C (yüksek) olarak alt kategorilere ayrılabilir.
+
+- BIRADS 5 (Yüksek Olasılıkla Malignite): Kanser olma olasılığı çok yüksektir. Bu durumda acil biyopsi ve tedavi gereklidir.
+
+
+```python
+pip install -r tc-requirements.txt
+```
+
+
+### 5.1 Veri Seti Hazırlama
+
+
+[Bu Python scripti](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/convert_dataset.py), mamografi raporları içeren bir veri setini işleyerek BIRADS sınıflarını tahmin edebilen bir makine öğrenmesi modeli için veri hazırlamak amacıyla tasarlanmıştır. Script şu işlemleri gerçekleştirir:
+
+1 - Veri Setinin Gezinmesi: Ana dizin altında bulunan alt klasörlerdeki metin dosyalarını (mamografi raporları) rekürsif olarak tarar.
+
+2 - BIRADS Skorlarının tespit edilmesi : Metin dosyalarında "BIRADS" veya "SONUÇ" gibi anahtar kelimeler aranarak raporların BIRADS skorları tespit edilir ve csv dosyasına dosya adı ile beraber ait oldupu sınıf kaydedilir  .
+
+3 - Skorların Normalizasyonu: Çıkarılan BIRADS skorları, tutarlılık sağlamak amacıyla normalize edilir. Bu işlem, raporda farklı şekillerde yazılmış (örneğin "BIRADS 4", "BIRADS Düzey 4" gibi) BIRADS skorlarının, standart bir formatta sunulmasını sağlar. Script, metin içerisindeki sayıları algılar ve sadece skoru temsil eden numarayı alarak diğer gereksiz karakterleri temizler. Bu sayede, modelin eğitiminde kullanılacak verilerdeki BIRADS skorları tekdüze hale getirilmiş olur.
+
+4 - Metin Verisinin Temizlenmesi: BIRADS skorları tespit edildikten sonra, bu skorların bulunduğu satırlar metin dosyasından kaldırılır. Bu işlem, raporun kalan kısmını temizleyerek, eğitime uygun hale getirilmesini sağlar. Böylece, modelin yalnızca raporun geri kalan kısmından öğrenme yapması sağlanır, bu da modelin daha doğru tahminler yapmasına katkıda bulunur.
+
+5 - Veri Hazırlığı: Çıkarılan skorlar ve ilgili dosya adlarını ve içeriklerini bir csv dosyası halinde derleyerek, model eğitimi veya daha ileri işleme için hazır hale getirir.
+
+
+Örnek Dataset:
+| Content | BIRADS SCORE |
+| --- | --- |
+| BİLATERAL MAMOGRAFİ İNCELEMESİ:\nMeme parankim...	 | 1 | 
+| BİLATERAL MAMOGRAFİ İNCELEMESİ\nMeme paterni:T...	 | 3 |
+| Her iki memeye yönelik Mammografi İncelemesi,\...	 | 5 |
+| BİLATERAL MAMOGRAFİ İNCELEMESİ:\nCilt-cilt alt...	 | 4 |
+
+
+### 5.2 Veri Görselleştirme
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/analyzegraph.png)
+
+Grafik incelendiğinde BIRADS 1 kategorisine ait yetersiz veri olduğu tespit edilmiştir . Bu durum veri dengesizliğine yol açmakta ve Modelin BIRADS1 kategorisine ait verilerde kötü sonuçlar doğurmasına sebep olmuştur .
+
+### 5.3 Gemini ile Veri Arttırımı (Data Augmentation)
+
+Bi önceki bölümde bahsedilen Veri dengesizliği sorununa çözüm olarak [veri arttırımı yöntemi](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/Data_Production.py) geliştirilmiştir . 
+
+
+Bu yöntemde amaç Gemini 1.5 Flash modeli kullanılarak 1 tane rapordan 4 tane yeni rapor üretmektir . Projede kullanılan yöntem, prompt tabanlıdır ve bu prompt başka kategoriler (labeller) için de uygulanabilir.
+
+
+Kullanılan Gemini 1.5 Flash modeli için ücretsiz olarak [buradan](https://aistudio.google.com/app/apikey) API KEY alabilirsiniz . Bu kodu çalıştırmadan önce kendi API KEY girmeyi unutmayın 
+
+```python
+
+genai.configure(api_key="WRİTE_YOUR_OWN_API_KEY") # Add your API_KEY 
+model = genai.GenerativeModel('gemini-1.5-flash', safety_settings=safety_settings)
+
+```
+
+Aşağıda veri artırımı işlemini gerçekleştirmek için yazılan promptu, çoğaltmak istediğiniz sınıfa göre ayarlayınız.
+
+```python
+
+response = model.generate_content("""
+
+    Sen bir yapay zeka modelisin ve verilen Türkçe memeografi raporunu genel anlam ve kelime anlamı açısından analiz eden bir sentetik veri üreticisisin.
+
+    Bu rapor, BIRADS 1 kategorisine aittir ve normal, herhangi bir malignite belirtisi olmayan bulgular içermektedir.
+
+    Aşağıda verilen raporu analiz et ve anla. Anlamını anladıktan sonra, bu raporu hazırlayan bir doktorun aynı BIRADS 1 kategorisinde benzer raporları nasıl yazmış olabileceğini düşün. Bu doğrultuda, orijinal raporun uzunluğuna yakın ve tıbbi doğruluğa sahip 4 adet yeni rapor üret.
+
+    Sadece aşağıdaki Python liste formatında yaz. Başka hiçbir şey yazma:
+    Çıktı formatı: ["<rapor1>", "<rapor2>", "<rapor3>", "<rapor4>"]
+
+    \n\n
+    Orijinal Rapor: """ + sentence)
+
+```
 
 ### 5.4 MODELS
 
