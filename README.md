@@ -310,4 +310,12 @@ Model çıktıları:
 
 
 
-### 5.5 Transformers-İnterpret
+### 5.5 Transformers-İnterpret 
+
+
+[tranformers-interpret](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/transformers_interpret.ipynb) kütüphanesi kullanılmıştır . Bu sayede çıktıdaki kelimelerin hedef etiket ile nasıl bir korelasyona sahip olduğu görülmektedir.
+
+
+BIRADS1 
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/inter_pre.png)
