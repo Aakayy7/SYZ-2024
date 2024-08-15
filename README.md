@@ -298,4 +298,16 @@ response = model.generate_content("""
 
 ### 5.4 MODELS
 
+
+Model çıktıları:
+| Model Adı                 | Doğruluk (Acc) | macro avg |
+|---------------------------|----------|----------------|
+| [Logistic Regression](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/CRF_NER.ipynb)| %91 | %79 |
+| [Naive Bayes ](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/NER_SPACY.ipynb)| %80 | %64 |
+| [XGboost](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/ltsm.ipynb)| %96 | %86|
+| [LSTM](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/ltsm.ipynb)| %95 | %90|
+| [BERT](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/ltsm.ipynb)| %99 | %99|
+
+
+
 ### 5.5 Transformers-İnterpret
