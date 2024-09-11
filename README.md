@@ -58,112 +58,17 @@ Aşağıdaki kod parçasını çalıştırarak gerekli olan bütün kütüphanel
 pip install -r ner_requirements.txt
 ```
 
-### 4.1 Annotation with AI
 
-### 4.2 Augmentation ( Word Level )
+### 4.1 Preprocessing
 
-Veri setini genişletmek ve model performansını artırmak amacıyla çeşitli veri artırma (Data Augmen
-tation) teknikleri uygulanmıştır. Karakter değişimi, karakter silme, karakter ekleme ve eşanlamlı 
-değiştirme gibi yöntemler kullanılmıştır. Karakter değişimi ile metindeki belirli karakterler farklı karak
-terlerle değiştirilirken, karakter silme yöntemiyle belirli karakterler silinerek veri setinde çeşitlilik 
-sağlanmıştır. Karakter ekleme ile metne ekstra karakterler eklenmiş ve eşanlamlı değiştirme ile be
-lirli kelimeler eşanlamlılarıyla değiştirilmiştir. Bu teknikler, modelin küçük yazım hatalarına, farklı 
-karakter varyasyonlarına, eksik veya hatalı karakter içeren verilerle, fazladan karakter içeren ver
-ilerle ve farklı kelime kullanımlarıyla başa çıkma yeteneğini artırarak dayanıklılığını ve genelleme 
-yeteneğini güçlendirmiştir. Bu teknikler, modelin daha geniş bir veri senaryosu yelpazesiyle eğitilme
-sine ve test edilmesine olanak tanıyarak, gerçek dünya verilerindeki varyasyonlara karşı daha esnek 
-ve güvenilir olmasını sağlamıştır. 
+JSONL formatında alınan veriler dataframe (csv) ve .conll formatına çevrilir .
 
-Gerekli kodlara [Augmentation.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/augment_data.py)
-
-#### Orjinal Metin
-
-```python
-Orjinal Metin
-
-Bu örnek metin, karakter düzeyinde veri çoğaltma yöntemlerini göstermektedir.
-
-```
-
-#### character_swap
-
-```python
-
-# Define all the augmentation methods
-def character_swap(text, swap_prob=0.1):
-    text_chars = list(text)
-    for i in range(len(text_chars) - 1):
-        if random.random() < swap_prob:
-            text_chars[i], text_chars[i + 1] = text_chars[i + 1], text_chars[i]
-    return ''.join(text_chars)
-```
-
-![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character-swap.png)
-
-
-#### character_replacement
-
-```python
-
-def character_replacement(text, replace_prob=0.1):
-    text_chars = list(text)
-    for i in range(len(text_chars)):
-        if random.random() < replace_prob:
-            text_chars[i] = random.choice('abcdefghijklmnoprstuvyzABCDEFGHIJKLMNOPRSTUVYZ')
-    return ''.join(text_chars)
-```
-
-![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character_replacemant.png)
-
-
-#### character_deletion
-
-```python
-
-def character_deletion(text, delete_prob=0.1):
-    text_chars = list(text)
-    new_text_chars = [ch for ch in text_chars if random.random() > delete_prob]
-    return ''.join(new_text_chars)
-
-```
-
-![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/Character_deletion.png)
-
-
-#### character_insertion
-
-```python
-
-def character_insertion(text, insert_prob=0.1):
-    text_chars = list(text)
-    new_text_chars = []
-    for ch in text_chars:
-        new_text_chars.append(ch)
-        if random.random() < insert_prob:
-            new_text_chars.append(random.choice('abcdefghijklmnoprstuvyzABCDEFGHIJKLMNOPRSTUVYZ'))
-    return ''.join(new_text_chars)
-
-```
-
-![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character_insertion.png)
-
-
-
-### 4.3 Fix_it.py
-
-Verilen JSONL dosyasının içindeki türkçe olmayan karakterleri türkçe karşılıkları ile değiştirir
-eğer karşılığı yoksa siler.
-
-Gerekli kodlara [Fix_İT.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/fix_it.py)
-
-
-
-
-### 4.4 Preprocessing
-
-JSONL formatında alınan veriler dataframe çevrilir .
 
 Gerekli Preprocessing kodlarına [NER_Preprocessing.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/NER_Preprocessing.py)
+
+
+[csv to conll](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/conl_maker.py)
+
 
 
 <br>
@@ -178,18 +83,33 @@ Gerekli Preprocessing kodlarına [NER_Preprocessing.py](https://github.com/Aakay
 | 0 | iki | ANAT |
 
 
+Örnek conll
+
+```python
+
+Meme O
+parankimi O
+heterojen O
+yoğun O
+olduğu O
+için O
+küçük O
+boyutlu OBS-PRESENT
+lezyonlar OBS-PRESENT
+mamografide OBS-PRESENT
+saptanamayabilir OBS-PRESENT
+
+```
 
 <br>
 
 
 
-### 4.5 MODELS
+### 4.2 MODELS
 
-Üretilen ve etiketlenen veriler ön işleme adımlarından geçirilerek SpaCy, CRF, LSTM ve BERT Base 
-Turkish Cased modelleri eğitildi. LSTM modeli, diğer modellere göre sekans bazlı verilerde üstün 
-performans sergileyerek karmaşık ilişkileri daha etkili bir şekilde işleyebilme yeteneğiyle öne çıktı. 
+Üretilen ve etiketlenen veriler ön işleme adımlarından geçirilerek SpaCy, CRF, LSTM ve bert-base-turkish-ner-cased modelleri eğitildi. BERT modeli, diğer modellere göre sekans bazlı verilerde üstün performans sergileyerek karmaşık ilişkileri daha etkili bir şekilde işleyebilme yeteneğiyle öne çıktı. 
 Türkçe metinlerdeki dil yapısını anlama ve uzun dönem bağımlılıkları yönetme konusundaki 
-başarısı, LSTM modelinin seçilmesinde etkili oldu. Ayrıca, LSTM'nin sürekli olarak geliştirilen ve 
+başarısı, BERT modelinin seçilmesinde etkili oldu. Ayrıca, BERT'ün sürekli olarak geliştirilen ve 
 geniş kullanıcı kitlesi tarafından benimsenen bir model olması, güvenilirliğini ve etkinliğini pekiştirdi
 
 <br>
@@ -200,10 +120,14 @@ Model çıktıları:
 | [CRF](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/CRF_NER.ipynb)| %80 | %75  |
 | [SpaCy](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/NER_SPACY.ipynb)| %75,9   | %72,3 |
 | [LSTM](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/ltsm.ipynb)| %95,3 | %84,3|
+| [BERT](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/BERT_NER.ipynb)| %92 | %86 |
 
+
+[BERT Modeli Linki](AAkay/bert_ner_model_for_syz_2024)
 
 
 <br>
+
 
 ## BI-RADS Kategorisi Tahminleme
 
@@ -296,7 +220,98 @@ response = model.generate_content("""
 
 ```
 
-### 5.4 MODELS
+
+### 5.4 World Level Augmentation 
+
+
+Veri setini genişletmek ve model performansını artırmak amacıyla çeşitli veri artırma (Data Augmen
+tation) teknikleri uygulanmıştır. Karakter değişimi, karakter silme, karakter ekleme ve eşanlamlı 
+değiştirme gibi yöntemler kullanılmıştır. Karakter değişimi ile metindeki belirli karakterler farklı karak
+terlerle değiştirilirken, karakter silme yöntemiyle belirli karakterler silinerek veri setinde çeşitlilik 
+sağlanmıştır. Karakter ekleme ile metne ekstra karakterler eklenmiş ve eşanlamlı değiştirme ile be
+lirli kelimeler eşanlamlılarıyla değiştirilmiştir. Bu teknikler, modelin küçük yazım hatalarına, farklı 
+karakter varyasyonlarına, eksik veya hatalı karakter içeren verilerle, fazladan karakter içeren ver
+ilerle ve farklı kelime kullanımlarıyla başa çıkma yeteneğini artırarak dayanıklılığını ve genelleme 
+yeteneğini güçlendirmiştir. Bu teknikler, modelin daha geniş bir veri senaryosu yelpazesiyle eğitilme
+sine ve test edilmesine olanak tanıyarak, gerçek dünya verilerindeki varyasyonlara karşı daha esnek 
+ve güvenilir olmasını sağlamıştır. 
+
+Gerekli kodlara [Augmentation.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/augment_data.py)
+
+#### Orjinal Metin
+
+```python
+Orjinal Metin
+
+Bu örnek metin, karakter düzeyinde veri çoğaltma yöntemlerini göstermektedir.
+
+```
+
+#### character_swap
+
+```python
+
+# Define all the augmentation methods
+def character_swap(text, swap_prob=0.1):
+    text_chars = list(text)
+    for i in range(len(text_chars) - 1):
+        if random.random() < swap_prob:
+            text_chars[i], text_chars[i + 1] = text_chars[i + 1], text_chars[i]
+    return ''.join(text_chars)
+```
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character-swap.png)
+
+
+#### character_replacement
+
+```python
+
+def character_replacement(text, replace_prob=0.1):
+    text_chars = list(text)
+    for i in range(len(text_chars)):
+        if random.random() < replace_prob:
+            text_chars[i] = random.choice('abcdefghijklmnoprstuvyzABCDEFGHIJKLMNOPRSTUVYZ')
+    return ''.join(text_chars)
+```
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character_replacemant.png)
+
+
+#### character_deletion
+
+```python
+
+def character_deletion(text, delete_prob=0.1):
+    text_chars = list(text)
+    new_text_chars = [ch for ch in text_chars if random.random() > delete_prob]
+    return ''.join(new_text_chars)
+
+```
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/Character_deletion.png)
+
+
+#### character_insertion
+
+```python
+
+def character_insertion(text, insert_prob=0.1):
+    text_chars = list(text)
+    new_text_chars = []
+    for ch in text_chars:
+        new_text_chars.append(ch)
+        if random.random() < insert_prob:
+            new_text_chars.append(random.choice('abcdefghijklmnoprstuvyzABCDEFGHIJKLMNOPRSTUVYZ'))
+    return ''.join(new_text_chars)
+
+```
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/character_insertion.png)
+
+
+
+### 5.5 MODELS
 
 
 Model çıktıları:
@@ -309,6 +324,7 @@ Model çıktıları:
 | [BERT](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/ltsm.ipynb)| %99 | %99|
 
 
+[BERT Modeli Linki](AAkay/bert_classfication_model_for_syz_2024)
 
 ### 5.5 Transformers-İnterpret 
 
