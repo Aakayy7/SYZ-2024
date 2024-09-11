@@ -1,4 +1,4 @@
-# LayerLords 
+# LayerLords
 #### TEKNOFEST 2024 Sağlıkta Yapay Zeka Yarışması Finalisti LayerLords Takımı Kodları
 Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerinde kitle ve kalsifikasyon tespiti yapmayı ve BI-RADS (1, 2, 4, 5) kategorilerini tahmin etmeyi başardık. Mamografi radyoloji raporlarından varlık ismi çıkarımı (Named Entity Recognition) gerçekleştirerek, raporlardaki önemli tıbbi terimleri otomatik olarak tanımladık. Ayrıca, bu raporlardan BI-RADS kategorilerini doğru bir şekilde tahmin eden modeller geliştirdik. Bu yaklaşımlar ile mamografi değerlendirmelerinin hızını ve tutarlılığını artırarak sağlık profesyonellerine teşhis ve tedavi süreçlerinde önemli bir destek sağlamayı hedefliyoruz.
 
@@ -12,27 +12,55 @@ Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerin
 
 ## Bölümler
 
-1. [Veri Seti](#VeriSeti)
-2. [V-BIRADS](#installation)
-3. [V-YOLO](#usage)
-4. [NER](#contributing)
-5. [TEXT- CLASFFICATION](#usage)
+
+1. [V-BIRADS](#installation)
+2. [V-YOLO](#usage)
+3. [NER](#contributing)
+4. [TEXT CLASFFICATION](#usage)
+5. [test codes](#test)
 
 
 
+##  BI-RADS Sınıflandırması
 
-## Veri Seti
-
-
-
-
-## V-BIRADS
 
 
 
 
 ## V-YOLO
 
+
+Mamografi görüntülerinde kitle ve kalsifikasyon tespiti yapılması hedeflenmektedir . 
+
+
+[Bu kod](https://github.com/Aakayy7/SYZ-2024/blob/main/kitle_kals/YoloKitleKals.ipynb), YOLOv8 modelini kullanarak mamografi görüntülerinde kitle ve kalsifikasyon tespiti yapmak için eğitilmiştir. İlk bölümde, eğitim verilerinin bulunduğu bir ZIP dosyasını çıkartmak için bir işlev tanımlanmıştır. ZIP dosyası, belirli bir klasöre çıkarılmıştır ve bu işlem sırasında bir ilerleme çubuğu ile kullanıcıya bilgi verilmektedir. Dosya çıkarma işlemi paralel bir şekilde, ThreadPoolExecutor kullanılarak hızlandırılmıştır.
+
+YOLO modeli, ultralytics kütüphanesi aracılığıyla yüklenmiş ve yolov8s.pt model dosyası kullanılarak eğitime başlanmıştır. Model, belirtilen bir dataset.yaml dosyasını kullanarak 100 epoch boyunca eğitilmektedir. Eğitim tamamlandıktan sonra, sonuçlar ZIP formatında sıkıştırılıp kullanıcıya sunulmaktadır.
+
+
+### Test Codes 
+
+1. Pencereleme (Windowing) Fonksiyonunun Tanımlanması:
+
+- Görüntü kontrastını iyileştirmek için Window Center (WC) ve Window Width (WW) değerleri kullanılarak DICOM görüntülerine pencereleme uygulanmaktadır.
+
+- Piksel değerleri, belirlenen minimum ve maksimum aralığa göre kırpılmakta ve normalize edilmektedir.
+
+2. DICOM Dosyalarının PNG’ye Dönüştürülmesi:
+
+- Her bir DICOM dosyası okunmakta, piksel verisi çıkarılmakta ve pencereleme uygulanmaktadır.
+
+- Dönüştürülen görüntü, PNG formatında kaydedilmektedir.
+
+3. Toplu DICOM Dosyalarının İşlenmesi:
+
+- Belirli bir klasördeki tüm DICOM dosyaları taranmakta ve her bir dosya için DICOM'dan PNG’ye dönüşüm işlemi başlatılmaktadır.
+
+4. Çoklu İş Parçacığı (Multithreading) Kullanımı:
+
+- Çoklu iş parçacığı ile (ThreadPoolExecutor) aynı anda birden fazla DICOM dosyasının işlenmesi sağlanarak işlem süresi hızlandırılmaktadır.
+
+[Kodlar](https://github.com/Aakayy7/SYZ-2024/blob/main/kitle_kals/kitle_kals_test.ipynb)
 
 
 
@@ -123,7 +151,7 @@ Model çıktıları:
 | [BERT](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/BERT_NER.ipynb)| %92 | %86 |
 
 
-[BERT Modeli Linki](AAkay/bert_ner_model_for_syz_2024)
+[BERT Modeli Linki](https://huggingface.co/AAkay/bert_ner_model_for_syz_2024)
 
 
 <br>
@@ -324,7 +352,7 @@ Model çıktıları:
 | [BERT](https://github.com/Aakayy7/SYZ-2024/blob/main/TEXT-CLASSFICATION/ltsm.ipynb)| %99 | %99|
 
 
-[BERT Modeli Linki](AAkay/bert_classfication_model_for_syz_2024)
+[BERT Modeli Linki](https://huggingface.co/AAkay/bert_classfication_model_for_syz_2024)
 
 ### 5.5 Transformers-İnterpret 
 
