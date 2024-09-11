@@ -21,13 +21,13 @@ Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerin
 2. [V-YOLO](#usage)
 3. [NER](#contributing)
 4. [TEXT CLASFFICATION](#usage)
-5. [test codes](#test)
+
 
 
 
 ##  BI-RADS Sınıflandırması
 
-Mamografi görüntğlerinden Meme Kanseri(BI-RADS) sınıflandırması hedeflenmektedir .
+Mamografi görüntülerinden Meme Kanseri(BI-RADS) sınıflandırması hedeflenmektedir .
 
 
 
