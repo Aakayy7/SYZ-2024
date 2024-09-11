@@ -27,11 +27,13 @@ Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerin
 
 ##  BI-RADS Sınıflandırması
 
+Mamografi görüntğlerinden Meme Kanseri(BI-RADS) sınıflandırması hedeflenmektedir .
 
 
 
 
-## V-YOLO
+
+## Kitle ve Kalsifikasyon Tespiti 
 
 
 ![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/kitle_kals.jpeg)
@@ -49,23 +51,23 @@ YOLO modeli, ultralytics kütüphanesi aracılığıyla yüklenmiş ve yolov8s.p
 
 1. Pencereleme (Windowing) Fonksiyonunun Tanımlanması:
 
-- Görüntü kontrastını iyileştirmek için Window Center (WC) ve Window Width (WW) değerleri kullanılarak DICOM görüntülerine pencereleme uygulanmaktadır.
+    - Görüntü kontrastını iyileştirmek için Window Center (WC) ve Window Width (WW) değerleri kullanılarak DICOM görüntülerine pencereleme uygulanmaktadır.
 
-- Piksel değerleri, belirlenen minimum ve maksimum aralığa göre kırpılmakta ve normalize edilmektedir.
+    - Piksel değerleri, belirlenen minimum ve maksimum aralığa göre kırpılmakta ve normalize edilmektedir.
 
 2. DICOM Dosyalarının PNG’ye Dönüştürülmesi:
 
-- Her bir DICOM dosyası okunmakta, piksel verisi çıkarılmakta ve pencereleme uygulanmaktadır.
+    - Her bir DICOM dosyası okunmakta, piksel verisi çıkarılmakta ve pencereleme uygulanmaktadır.
 
-- Dönüştürülen görüntü, PNG formatında kaydedilmektedir.
+    - Dönüştürülen görüntü, PNG formatında kaydedilmektedir.
 
 3. Toplu DICOM Dosyalarının İşlenmesi:
 
-- Belirli bir klasördeki tüm DICOM dosyaları taranmakta ve her bir dosya için DICOM'dan PNG’ye dönüşüm işlemi başlatılmaktadır.
+    - Belirli bir klasördeki tüm DICOM dosyaları taranmakta ve her bir dosya için DICOM'dan PNG’ye dönüşüm işlemi başlatılmaktadır.
 
 4. Çoklu İş Parçacığı (Multithreading) Kullanımı:
 
-- Çoklu iş parçacığı ile (ThreadPoolExecutor) aynı anda birden fazla DICOM dosyasının işlenmesi sağlanarak işlem süresi hızlandırılmaktadır.
+    - Çoklu iş parçacığı ile (ThreadPoolExecutor) aynı anda birden fazla DICOM dosyasının işlenmesi sağlanarak işlem süresi hızlandırılmaktadır.
 
 [Kodlar](https://github.com/Aakayy7/SYZ-2024/blob/main/kitle_kals/kitle_kals_test.ipynb)
 
