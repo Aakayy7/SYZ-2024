@@ -1,6 +1,6 @@
 # LayerLords
 
-<img src="https://github.com/Aakayy7/SYZ-2024/raw/main/images/logo.jpeg" alt="Logo" width="700" height="600"/>
+<img src="https://github.com/Aakayy7/SYZ-2024/raw/main/images/logo.jpeg" alt="Logo" width="700" height="450"/>
 
 
 #### TEKNOFEST 2024 Sağlıkta Yapay Zeka Yarışması Finalisti LayerLords Takımı Kodları
