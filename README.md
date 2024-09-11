@@ -1,4 +1,8 @@
 # LayerLords
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/logo.jpeg)
+
+
 #### TEKNOFEST 2024 Sağlıkta Yapay Zeka Yarışması Finalisti LayerLords Takımı Kodları
 Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerinde kitle ve kalsifikasyon tespiti yapmayı ve BI-RADS (1, 2, 4, 5) kategorilerini tahmin etmeyi başardık. Mamografi radyoloji raporlarından varlık ismi çıkarımı (Named Entity Recognition) gerçekleştirerek, raporlardaki önemli tıbbi terimleri otomatik olarak tanımladık. Ayrıca, bu raporlardan BI-RADS kategorilerini doğru bir şekilde tahmin eden modeller geliştirdik. Bu yaklaşımlar ile mamografi değerlendirmelerinin hızını ve tutarlılığını artırarak sağlık profesyonellerine teşhis ve tedavi süreçlerinde önemli bir destek sağlamayı hedefliyoruz.
 
