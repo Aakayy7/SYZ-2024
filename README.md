@@ -30,6 +30,9 @@ Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerin
 ## V-YOLO
 
 
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/kitle_kals.jpeg)
+
+
 Mamografi görüntülerinde kitle ve kalsifikasyon tespiti yapılması hedeflenmektedir . 
 
 
