@@ -17,10 +17,10 @@ Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerin
 ## Bölümler
 
 
-1. [V-BIRADS](#installation)
-2. [V-YOLO](#usage)
-3. [NER](#contributing)
-4. [TEXT CLASFFICATION](#usage)
+1. [BI-RADS Sınıflandırma ](#birads)
+2. [Kitle ve Kalsfikasyon Tespiti](#kitle)
+3. [Varlık İsmi Çıkarımı(NER)](#ner)
+4. [BIRADS Kategori Tahmini (TEXT CLASFFICATION) ](#tclassfication)
 
 
 
@@ -38,38 +38,6 @@ Mamografi görüntülerinden Meme Kanseri(BI-RADS) sınıflandırması hedeflenm
 
 ![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/kitle_kals.jpeg)
 
-
-Mamografi görüntülerinde kitle ve kalsifikasyon tespiti yapılması hedeflenmektedir . 
-
-
-[Bu kod](https://github.com/Aakayy7/SYZ-2024/blob/main/kitle_kals/YoloKitleKals.ipynb), YOLOv8 modelini kullanarak mamografi görüntülerinde kitle ve kalsifikasyon tespiti yapmak için eğitilmiştir. İlk bölümde, eğitim verilerinin bulunduğu bir ZIP dosyasını çıkartmak için bir işlev tanımlanmıştır. ZIP dosyası, belirli bir klasöre çıkarılmıştır ve bu işlem sırasında bir ilerleme çubuğu ile kullanıcıya bilgi verilmektedir. Dosya çıkarma işlemi paralel bir şekilde, ThreadPoolExecutor kullanılarak hızlandırılmıştır.
-
-YOLO modeli, ultralytics kütüphanesi aracılığıyla yüklenmiş ve yolov8s.pt model dosyası kullanılarak eğitime başlanmıştır. Model, belirtilen bir dataset.yaml dosyasını kullanarak 100 epoch boyunca eğitilmektedir. Eğitim tamamlandıktan sonra, sonuçlar ZIP formatında sıkıştırılıp kullanıcıya sunulmaktadır.
-
-
-### Test Codes 
-
-1. Pencereleme (Windowing) Fonksiyonunun Tanımlanması:
-
-    - Görüntü kontrastını iyileştirmek için Window Center (WC) ve Window Width (WW) değerleri kullanılarak DICOM görüntülerine pencereleme uygulanmaktadır.
-
-    - Piksel değerleri, belirlenen minimum ve maksimum aralığa göre kırpılmakta ve normalize edilmektedir.
-
-2. DICOM Dosyalarının PNG’ye Dönüştürülmesi:
-
-    - Her bir DICOM dosyası okunmakta, piksel verisi çıkarılmakta ve pencereleme uygulanmaktadır.
-
-    - Dönüştürülen görüntü, PNG formatında kaydedilmektedir.
-
-3. Toplu DICOM Dosyalarının İşlenmesi:
-
-    - Belirli bir klasördeki tüm DICOM dosyaları taranmakta ve her bir dosya için DICOM'dan PNG’ye dönüşüm işlemi başlatılmaktadır.
-
-4. Çoklu İş Parçacığı (Multithreading) Kullanımı:
-
-    - Çoklu iş parçacığı ile (ThreadPoolExecutor) aynı anda birden fazla DICOM dosyasının işlenmesi sağlanarak işlem süresi hızlandırılmaktadır.
-
-[Kodlar](https://github.com/Aakayy7/SYZ-2024/blob/main/kitle_kals/kitle_kals_test.ipynb)
 
 
 
@@ -98,7 +66,7 @@ pip install -r ner_requirements.txt
 
 ### 4.1 Preprocessing
 
-JSONL formatında alınan veriler dataframe (csv) ve .conll formatına çevrilir .
+JSONL formatında alınan veriler dataframe (csv) ve Conll formatına çevrilir .
 
 
 Gerekli Preprocessing kodlarına [NER_Preprocessing.py](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/NER_Preprocessing.py)
@@ -157,7 +125,7 @@ Model çıktıları:
 | [CRF](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/CRF_NER.ipynb)| %80 | %75  |
 | [SpaCy](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/NER_SPACY.ipynb)| %75,9   | %72,3 |
 | [LSTM](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/ltsm.ipynb)| %95,3 | %84,3|
-| [BERT](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/BERT_NER.ipynb)| %92 | %86 |
+| [BERT Base NER Turkish Cased ](https://github.com/Aakayy7/SYZ-2024/blob/main/NER-CODES/BERT_NER.ipynb)| %92 | %86 |
 
 
 [BERT Modeli Linki](https://huggingface.co/AAkay/bert_ner_model_for_syz_2024)
