@@ -3,41 +3,79 @@
 <img src="https://github.com/Aakayy7/SYZ-2024/raw/main/images/logo.jpeg" alt="Logo" width="700" height="450"/>
 
 
-#### TEKNOFEST 2024 Sağlıkta Yapay Zeka Yarışması Türkiye 2.si LayerLords Takımı Kodları
+#### TEKNOFEST 2024 Sağlıkta Yapay Zeka Yarışması Finalisti LayerLords Takımı Kodları
 Projemizde, bilgisayarlı görü teknikleri kullanarak mamografi görüntülerinde kitle ve kalsifikasyon tespiti yapmayı ve BI-RADS (1, 2, 4, 5) kategorilerini tahmin etmeyi başardık. Mamografi radyoloji raporlarından varlık ismi çıkarımı (Named Entity Recognition) gerçekleştirerek, raporlardaki önemli tıbbi terimleri otomatik olarak tanımladık. Ayrıca, bu raporlardan BI-RADS kategorilerini doğru bir şekilde tahmin eden modeller geliştirdik. Bu yaklaşımlar ile mamografi değerlendirmelerinin hızını ve tutarlılığını artırarak sağlık profesyonellerine teşhis ve tedavi süreçlerinde önemli bir destek sağlamayı hedefliyoruz.
 
 
 ## Takım Üyeleri
+
 ---
 
 -  Ahmet Akay - [LinkedIn](https://www.linkedin.com/in/ahmet-akayy/), [Github](https://github.com/Aakayy7) <br/>
 -  Zafer Khaliqi - [LinkedIn](https://www.linkedin.com/in/zafer-khaliqi-a50464286/), [Github](https://github.com/zaferkhaliqi) <br/>
 
 
+
 ## Bölümler
 
+1. [Görüntü Ön İşleme Adımları](#preprocec)
+2. [BI-RADS Sınıflandırma ](#birads)
+3. [Kitle ve Kalsfikasyon Tespiti](#kitle)
+4. [Varlık İsmi Çıkarımı(NER)](#ner)
+5. [BIRADS Kategori Tahmini (TEXT CLASFFICATION) ](#tclassfication)
 
-1. [BI-RADS Sınıflandırma ](#birads)
-2. [Kitle ve Kalsfikasyon Tespiti](#kitle)
-3. [Varlık İsmi Çıkarımı(NER)](#ner)
-4. [BIRADS Kategori Tahmini (TEXT CLASFFICATION) ](#tclassfication)
+
+
+
+## Görüntü Ön İşleme Adımları
+
+- Dicom to PNG
+
+Veri kümesi boyutu 70 GB idi. Daha sonra, DICOM formatındaki veriler Pydicom kütüphanesi kullanılarak PNG formatına dönüştürüldü ve böylece işlenmesi daha kolay hale geldi.
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/0.png)
+
+
+- Siyah ve Beyaz Görüntüleri Ayarlama
+
+Görüntüler DICOM'dan PNG'ye dönüştürüldükten sonra, bazıları beyaz modda dönüştürülürken diğerleri siyah moddaydı. Bu karışıklığı gidermek için tüm görüntülerin ya beyaz ya da siyah modda olması gerekir. Tıbbi görüntülemede genellikle siyah mod tercih edildiği için siyah mod seçilmiştir.
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/1.jpg)
+
+
+- Görüntü Kırpma
+
+Görüntü kırpma işlemi, MakeSenseAI platformunda nesne algılama modelini (YOLOv8s) eğitmek için meme bölgeleri etiketlenerek manuel olarak gerçekleştirilmiştir. Etiketlenen veriler modeli eğitmek için kullanılmış ve daha sonra yerel bilgisayara indirilmiştir. Daha sonra, meme bölgeleri için sınırlayıcı kutu bilgileri elde edilmiş ve görüntüler bu alanlardan kırpılmıştır.
+
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/2.jpg)
+
+
+- Yeniden Boyutlandırma
+
+Görüntüler 512x512 olarak yeniden boyutlandırılarak, sinir ağlarının giriş katmanındaki nöron sayısı sabit tutulmuştur.
+
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/3.jpg)
 
 
 
 
 ##  BI-RADS Sınıflandırması
 
-Mamografi görüntülerinden Meme Kanseri(BI-RADS) sınıflandırması hedeflenmektedir .
+BIRADS için YOLO sınıflandırma modellerinden biri kullanılmıştır. YOLO öncelikle nesne tespiti için bilinmesine rağmen, geleneksel sinir ağı mimarisi nedeniyle sınıflandırma yapma kabiliyetine de sahiptir.
 
 
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/7.jpg)
 
 
 
 ## Kitle ve Kalsifikasyon Tespiti 
 
 
-![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/kitle_kals.jpeg)
+![Alt Text](https://github.com/Aakayy7/SYZ-2024/raw/main/images/combined_kitle_kals.jpeg)
 
+
+Kitleler ve kalsifikasyonlar için görüntüler önce kırpılmış ve modele (YOLOv10x) beslenmiştir. Ardından görüntüler basitçe yeniden boyutlandırılarak modele sunulmuş ve BIRADS modelinin aksine doğrulukta bir fark gözlenmemiştir. Bu nedenle test sırasında karmaşıklığı ve hata oranlarını azaltmak için görüntüler sadece yeniden boyutlandırılarak modele sunulmuştur.
 
 
 
